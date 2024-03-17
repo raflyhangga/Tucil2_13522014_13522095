@@ -57,7 +57,7 @@ export default function FormPoint({onSubmit}) {
                 <label htmlFor="iterasi">Iterasi:  </label>
               </li>
               <li>
-                <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" type="number" min={0} required placeholder={`1`} max={99} name="iterasi" id="iterasi"/>
+                <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" type="number" min={1} required placeholder={`1`} max={99} name="iterasi" id="iterasi"/>
               </li>
             </ul>
           </div>
