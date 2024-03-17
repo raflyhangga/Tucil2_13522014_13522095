@@ -9,13 +9,15 @@ export default function Home() {
   const [y,setY] = useState([0]);
   const [ctrlX,setCtrlX] = useState([0])
   const [ctrlY,setCtrlY] = useState([0])
+  const [execTime,setExecTime] = useState(0)
 
 
-  function onSubmit(listX:number[],listY:number[],ctrlX:number[],ctrlY:number[]){
+  function onSubmit(listX:number[],listY:number[],ctrlX:number[],ctrlY:number[],execTime:number){
     setX([ctrlX[0],...listX,ctrlX[ctrlX.length-1]])
     setY([ctrlY[0],...listY,ctrlY[ctrlY.length-1]])
     setCtrlX(ctrlX)
     setCtrlY(ctrlY)
+    setExecTime(execTime)
   }
 
 
@@ -31,6 +33,7 @@ export default function Home() {
               xValues={x}
               yValues={y}
             />
+            <span>Execution Time: {execTime} ms</span>
           </Suspense>
         </div>
       </div>

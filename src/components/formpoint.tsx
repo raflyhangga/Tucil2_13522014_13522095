@@ -1,30 +1,38 @@
 "use client"
+import { Switch } from "./ui/switch";
 import { FormEvent, useState } from "react";
+import { Button } from "./ui/button";
+import { Label } from "./ui/label";
 
 export default function FormPoint({onSubmit}) {
   const [amountPoints,setAmountPoints] = useState([]);
+  const [isBrute,setBrute] = useState(false)
   const URL = process.env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api`
   : "http://localhost:3000/api";
-
+  const ENDPOINT = isBrute? `${URL}/submitbrute`:`${URL}/submitdnc`
 
   function handlePointAmount(event){
     setAmountPoints(Array.from({length: event.target.value}, (_, i) => i + 1))
     console.log(event)
   }
 
+  function changeSolveMode(){
+    const currentState = isBrute
+    setBrute(!currentState)
+  }
+
   async function submitHandler(event: FormData) {
     // const formData = new FormData(event.currentTarget)
     console.log("Dikirim!") 
     try{
-      const response = await fetch(`${URL}/submit`,{
+      const response = await fetch(ENDPOINT,{
           method: "POST",
           body:event
       })
       const data = await response.json()
-      console.log(data.poinX)
-      console.log(data.poinY)
-      onSubmit(data.poinX,data.poinY,event.getAll('xpoint').map(x=>parseInt(x,10)),event.getAll('ypoint').map(x=>parseInt(x,10)))
+      console.log(data)
+      onSubmit(data.poinX,data.poinY,event.getAll('xpoint').map(x=>parseFloat(x)),event.getAll('ypoint').map(x=>parseFloat(x)),data.executionTime)
     } catch(err){
       console.log(err)
     }
@@ -60,7 +68,7 @@ export default function FormPoint({onSubmit}) {
                   <label htmlFor={`xpoint`}>Titik X{key}: </label>
                 </li>
                 <li>
-                  <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" required type="number" name={`xpoint`} id="point"/>
+                  <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" required type="number" step="any" name={`xpoint`} id="point"/>
                 </li>
               </ul>
               <ul className="flex flex-col">
@@ -68,11 +76,18 @@ export default function FormPoint({onSubmit}) {
                   <label htmlFor={`ypoint`}>Titik Y{key}:  </label>
                 </li>
                 <li>
-                  <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" required type="number" name={`ypoint`} id="point"/>
+                  <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" required type="number" step="any" name={`ypoint`} id="point"/>
                 </li>
               </ul>
             </div>))}
-            <button type="submit" className="bg-rose-500 px-3 py-2 mt-5 text-white rounded-md">Submit</button>
+            <div className="flex items-center mt-2">
+              <button type="submit" className="bg-rose-500 px-3 py-2 text-white rounded-md">Submit</button>
+              <div className="flex items-center space-x-2 ml-5">
+                <Switch id="solve-mode" checked={isBrute} onCheckedChange={changeSolveMode} />
+                {isBrute && <Label htmlFor="solve-mode">Brute Force</Label>}
+                {!isBrute && <Label htmlFor="solve-mode">Divide & Conquer</Label>}
+              </div>
+            </div>
         </form>
       </div>
     );

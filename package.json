@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "flask-dev": "pip install -r requirements.txt && python -m flask --app api/index run -p 8000 --reload",
+    "flask-dev": "python -m flask --app api/index run -p 8000 --reload",
     "next-dev": "next dev",
     "dev": "concurrently \"pnpm run next-dev\" \"pnpm run flask-dev\"",
     "build": "next build",
@@ -12,15 +12,23 @@
   },
   "dependencies": {
     "@canvasjs/react-charts": "^1.0.2",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-switch": "^1.0.3",
     "chart.js": "^4.4.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
     "concurrently": "^8.2.2",
+    "lucide-react": "^0.358.0",
     "next": "14.1.3",
     "plotly.js": "^2.30.1",
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
     "react-plotly.js": "^2.6.0",
-    "recharts": "^2.12.3"
+    "recharts": "^2.12.3",
+    "tailwind-merge": "^2.2.2",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20",
