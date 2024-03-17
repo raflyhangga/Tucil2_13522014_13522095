@@ -1,7 +1,7 @@
 "use client"
 import { FormEvent, useState } from "react";
 
-export default function FormPoint() {
+export default function FormPoint({onSubmit}) {
   const [amountPoints,setAmountPoints] = useState([]);
   const URL = process.env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api`
@@ -13,7 +13,7 @@ export default function FormPoint() {
     console.log(event)
   }
 
-  async function onSubmit(event: FormData) {
+  async function submitHandler(event: FormData) {
     // const formData = new FormData(event.currentTarget)
     console.log("Dikirim!") 
     try{
@@ -22,7 +22,9 @@ export default function FormPoint() {
           body:event
       })
       const data = await response.json()
-      console.log(data)
+      console.log(data.poinX)
+      console.log(data.poinY)
+      onSubmit(data.poinX,data.poinY,event.getAll('xpoint').map(x=>parseInt(x,10)),event.getAll('ypoint').map(x=>parseInt(x,10)))
     } catch(err){
       console.log(err)
     }
@@ -32,14 +34,14 @@ export default function FormPoint() {
 
     return (
       <div className="w-[30em]">
-        <form action={onSubmit}>
+        <form action={submitHandler}>
           <div className="flex flex-row gap-5">
             <ul className="flex flex-col">
               <li>
                 <label htmlFor="placeholder">Banyak Titik: </label>
               </li>
               <li>
-                <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" type="number" min={0} max={99} placeholder={`0`} name="banyaktitik" id="placeholder" onChangeCapture={handlePointAmount}/>
+                <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" type="number" min={3} max={99} required placeholder={`0`} name="banyaktitik" id="placeholder" onChangeCapture={handlePointAmount}/>
               </li>
             </ul>
             <ul className="flex flex-col">
@@ -47,7 +49,7 @@ export default function FormPoint() {
                 <label htmlFor="iterasi">Iterasi:  </label>
               </li>
               <li>
-                <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" type="number" min={0} placeholder={`1`} max={99} name="iterasi" id="iterasi"/>
+                <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" type="number" min={0} required placeholder={`1`} max={99} name="iterasi" id="iterasi"/>
               </li>
             </ul>
           </div>
@@ -58,7 +60,7 @@ export default function FormPoint() {
                   <label htmlFor={`xpoint`}>Titik X{key}: </label>
                 </li>
                 <li>
-                  <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" type="number" name={`xpoint`} id="point"/>
+                  <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" required type="number" name={`xpoint`} id="point"/>
                 </li>
               </ul>
               <ul className="flex flex-col">
@@ -66,7 +68,7 @@ export default function FormPoint() {
                   <label htmlFor={`ypoint`}>Titik Y{key}:  </label>
                 </li>
                 <li>
-                  <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" type="number" name={`ypoint`} id="point"/>
+                  <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" required type="number" name={`ypoint`} id="point"/>
                 </li>
               </ul>
             </div>))}
