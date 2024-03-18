@@ -20,7 +20,11 @@ chmod +x run.sh
 ## 🏃🏻‍♂️ Running The Project
 Run the following command
 ```
+# Windows
 ./run
+
+#UNIX
+./run.sh
 ```
 Then open ```http://localhost:3000```
 
