@@ -4,6 +4,7 @@ import { LineChart } from "@/components/linechart";
 import { Suspense, useState } from 'react'
 // import Plot from 'react-plotly.js'
 
+
 export default function Home() {
   const [x,setX] = useState([0]);
   const [y,setY] = useState([0]);
