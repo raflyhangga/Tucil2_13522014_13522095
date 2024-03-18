@@ -1,5 +1,4 @@
 from typing import List
-from dataclasses import dataclass
 import math
 import time
 
@@ -21,9 +20,8 @@ class BezierCurve:
         self.brutal_execution_time = 0
 
     def create_bezier_brutal(self):
-        ## kalkulasi secara brute force hanya bekerja dengan tiga titik kontrol
+       
         
-
         start_time = time.time()
         self.result_points_brutal.append(self.control_points[0])
         jml_titik = 2**self.iteration + 1

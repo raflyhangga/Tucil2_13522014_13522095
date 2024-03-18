@@ -35,19 +35,19 @@ export function LineChart({xValues, yValues,xScatter,yScatter}:{xValues:number[]
 
         ],
         axisX:{
-            gridThickness: 0,
+            gridThickness: 0.2,
             tickLength: 0,
-            lineThickness: 0,
-            labelFormatter: function(){
-              return " ";
+            lineThickness: 1,
+            labelFormatter: function(e){
+              return e.value;
             }
           },
           axisY:{
-            gridThickness: 0,
+            gridThickness: 0.2,
             tickLength: 0,
-            lineThickness: 0,
-            labelFormatter: function(){
-              return " ";
+            lineThickness: 1,
+            labelFormatter: function(e){
+              return e.value;
             }
         },
         options: {
