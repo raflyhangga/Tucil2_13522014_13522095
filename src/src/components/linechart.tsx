@@ -1,5 +1,6 @@
 // @ts-ignore
 import CanvasJSReact from '@canvasjs/react-charts';
+import { markAssetError } from 'next/dist/client/route-loader';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -26,11 +27,13 @@ export function LineChart({xValues, yValues,xScatter,yScatter}:{xValues:number[]
         data: [
             {
                 type: "line",
-                dataPoints: arr_of_lines
+                dataPoints: arr_of_lines,
+                
             },
             {
                 type: "scatter",
-                dataPoints: arr_of_scatter
+                dataPoints: arr_of_scatter,
+                
             },
 
         ],
