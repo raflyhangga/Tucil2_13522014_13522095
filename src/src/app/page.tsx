@@ -34,7 +34,7 @@ export default function Home() {
               xValues={x}
               yValues={y}
             />
-            <span>Execution Time: {execTime} ms</span>
+            <span className="ml-2">Execution Time: {execTime} ms</span>
           </Suspense>
         </div>
       </div>

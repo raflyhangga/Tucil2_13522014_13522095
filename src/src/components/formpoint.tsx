@@ -1,19 +1,23 @@
 "use client"
 import { Switch } from "./ui/switch";
-import { FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 
-export default function FormPoint({onSubmit}) {
-  const [amountPoints,setAmountPoints] = useState([]);
+type submitFunction = (listX:number[],listY:number[],ctrlX:number[],ctrlY:number[],execTime:number) => void;
+
+export default function FormPoint({onSubmit}:{onSubmit:submitFunction}) {
+  const [amountPoints,setAmountPoints] = useState([0,1,2]);
   const [isBrute,setBrute] = useState(false)
   const URL = process.env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api`
   : "http://localhost:3000/api";
   const ENDPOINT = isBrute? `${URL}/submitbrute`:`${URL}/submitdnc`
 
-  function handlePointAmount(event){
-    setAmountPoints(Array.from({length: event.target.value}, (_, i) => i + 1))
+  function handlePointAmount(event:ChangeEvent<HTMLInputElement>){
+    const numberOfPoints = parseInt(event.target.value,10)
+
+    setAmountPoints(Array.from({length: numberOfPoints}, (_, i) => i + 1))
     console.log(event)
   }
 
@@ -22,8 +26,7 @@ export default function FormPoint({onSubmit}) {
     setBrute(!currentState)
   }
 
-  async function submitHandler(event: FormData) {
-    // const formData = new FormData(event.currentTarget)
+  async function submitHandler(event: FormData): Promise<void> {
     console.log("Dikirim!") 
     try{
       const response = await fetch(ENDPOINT,{
@@ -32,7 +35,16 @@ export default function FormPoint({onSubmit}) {
       })
       const data = await response.json()
       console.log(data)
-      onSubmit(data.poinX,data.poinY,event.getAll('xpoint').map(x=>parseFloat(x)),event.getAll('ypoint').map(x=>parseFloat(x)),data.executionTime)
+
+      const file = event.get('documents[]') as string
+      const xpointValues =  Array.from(event.getAll('xpoint'), x => x.toString());
+      const ypointValues =  Array.from(event.getAll('ypoint'), x => x.toString());
+      onSubmit(
+        data.poinX,data.poinY,
+        xpointValues.map(x=>parseFloat(x)),
+        ypointValues.map(x=>parseFloat(x)),
+        data.executionTime
+      )
     } catch(err){
       console.log(err)
     }
@@ -49,7 +61,7 @@ export default function FormPoint({onSubmit}) {
                 <label htmlFor="placeholder">Banyak Titik: </label>
               </li>
               <li>
-                <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" type="number" min={3} max={99} required placeholder={`0`} name="banyaktitik" id="placeholder" onChangeCapture={handlePointAmount}/>
+                <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" type="number" min={3} max={99} required placeholder={`3`} name="banyaktitik" id="placeholder" onChangeCapture={handlePointAmount}/>
               </li>
             </ul>
             <ul className="flex flex-col">
@@ -68,7 +80,7 @@ export default function FormPoint({onSubmit}) {
                   <label htmlFor={`xpoint`}>Titik X{key}: </label>
                 </li>
                 <li>
-                  <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" required type="number" step="any" name={`xpoint`} id="point"/>
+                  <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" placeholder="3" required type="number" step="any" name={`xpoint`}/>
                 </li>
               </ul>
               <ul className="flex flex-col">
@@ -76,7 +88,7 @@ export default function FormPoint({onSubmit}) {
                   <label htmlFor={`ypoint`}>Titik Y{key}:  </label>
                 </li>
                 <li>
-                  <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" required type="number" step="any" name={`ypoint`} id="point"/>
+                  <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" placeholder="4" required type="number" step="any" name={`ypoint`}/>
                 </li>
               </ul>
             </div>))}

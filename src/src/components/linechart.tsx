@@ -1,10 +1,11 @@
+// @ts-ignore
 import CanvasJSReact from '@canvasjs/react-charts';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 
-export function LineChart({xValues, yValues,xScatter,yScatter}:number[])  {
+export function LineChart({xValues, yValues,xScatter,yScatter}:{xValues:number[],yValues:number[],xScatter:number[],yScatter:number[]})  {
     let arr_of_scatter = []
     let arr_of_lines = []
     for(let i=0;i<xScatter.length;i++){
