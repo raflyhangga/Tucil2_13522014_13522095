@@ -19,9 +19,7 @@ class BezierCurve:
         self.dnc_execution_time = 0
         self.brutal_execution_time = 0
 
-    def create_bezier_brutal(self):
-       
-        
+    def create_bezier_brutal(self):        
         start_time = time.time()
         self.result_points_brutal.append(self.control_points[0])
         jml_titik = 2**self.iteration + 1
@@ -34,8 +32,6 @@ class BezierCurve:
             for j in range(count_ctrl):
                 x += (math.comb(count_ctrl-1,j))*((1-t)**(count_ctrl-j-1))*(t**j)*self.control_points[j].x
                 y += (math.comb(count_ctrl-1,j))*((1-t)**(count_ctrl-j-1))*(t**j)*self.control_points[j].y
-            # x = ((1-t)**2)*self.control_points[0].x + 2*(1-t)*t*self.control_points[1].x + (t**2)*self.control_points[2].x
-            # y = ((1-t)**2)*self.control_points[0].y + 2*(1-t)*t*self.control_points[1].y + (t**2)*self.control_points[2].y
             point = Point(x,y)
             self.result_points_brutal.append(point)
             
