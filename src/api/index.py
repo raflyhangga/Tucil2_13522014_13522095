@@ -1,5 +1,5 @@
 from flask import Flask,request,jsonify,Response
-from bezier import Bezier,Point,BezierCurve
+from BezierCurve import BezierCurve,Point
 
 app = Flask(__name__)
 
