@@ -12,7 +12,7 @@ export function Navbar() {
     return (
     // <div className="fixed top-0 right-0 left-0 z-50">
     <div>
-        <div  className="flex justify-center px-[20em] py-5 items-center shadow-md bg-white">
+        <div className="flex justify-center px-[20em] py-5 items-center shadow-md bg-white">
             <h1 className={`${adlam_display.className} text-3xl`}>
             Bezier Curve
             </h1>
