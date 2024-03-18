@@ -8,18 +8,21 @@ Structure for this project is using Next JS Framework with Python's Flask API.
 In order to run the project, there's some dependencies you need to install.
 Run the following command
 ```
-cd ./src
-pip install -r requirements.txt
-npm i concurrently
-npm i -g pnpm
-npm install
+# Windows
+./build
+
+# UNIX
+chmod +x build.sh
+chmod +x run.sh
+./build.sh
 ```
 
 ## 🏃🏻‍♂️ Running The Project
 Run the following command
 ```
-npm run dev
+./run
 ```
+Then open ```http://localhost:3000```
 
 ## 🤵🏻 Contributors
 | Contributors                     | NIM      |
