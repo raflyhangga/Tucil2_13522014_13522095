@@ -80,7 +80,7 @@ export default function FormPoint({onSubmit}:{onSubmit:submitFunction}) {
                   <label htmlFor={`xpoint`}>Titik X{key}: </label>
                 </li>
                 <li>
-                  <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" placeholder="3" required type="number" step="any" name={`xpoint`}/>
+                  <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" placeholder={`${Math.floor((Math.random() * 100) + 1)}`} required type="number" step="any" name={`xpoint`}/>
                 </li>
               </ul>
               <ul className="flex flex-col">
@@ -88,7 +88,7 @@ export default function FormPoint({onSubmit}:{onSubmit:submitFunction}) {
                   <label htmlFor={`ypoint`}>Titik Y{key}:  </label>
                 </li>
                 <li>
-                  <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" placeholder="4" required type="number" step="any" name={`ypoint`}/>
+                  <input className="border-[3px] rounded-md border-rose-500 px-2 py-[1.5px]" placeholder={`${Math.floor((Math.random() * 100) + 1)}`} required type="number" step="any" name={`ypoint`}/>
                 </li>
               </ul>
             </div>))}
