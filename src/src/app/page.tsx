@@ -2,7 +2,6 @@
 import FormPoint from "@/components/formpoint";
 import { LineChart } from "@/components/linechart";
 import { Suspense, useState } from 'react'
-// import Plot from 'react-plotly.js'
 
 
 export default function Home() {
@@ -24,7 +23,7 @@ export default function Home() {
 
   return (
     <div>
-      <div className="flex flex-col flex-wrap lg:flex-row justify-center gap-10 items-center">
+      <div className="flex flex-col flex-wrap lg:flex-row justify-center gap-10 items-center mx-10">
         <FormPoint onSubmit={onSubmit}/>
         <div className="shadow-md md:w-[1000px] w-[100vw] ">
           <Suspense fallback={<p>Loading....</p>}>

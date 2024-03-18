@@ -53,7 +53,7 @@ export default function FormPoint({onSubmit}:{onSubmit:submitFunction}) {
 
 
     return (
-      <div className="w-[30em]">
+      <div className="w-[30em] mx-10">
         <form action={submitHandler}>
           <div className="flex flex-row gap-5">
             <ul className="flex flex-col">

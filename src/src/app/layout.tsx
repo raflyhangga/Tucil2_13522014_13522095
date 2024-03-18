@@ -17,9 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="flex flex-col gap-5">
         <Navbar/>
-        <div className={`h-screen lg:pt-[150px] pt-[200px] bg-white ${gabarito.className}`}>
+        <div className={`h-screen bg-white ${gabarito.className}`}>
           {children}
         </div>
       </body>
